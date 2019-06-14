@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<form string="Purchase Request">
+            <header>
+                <button name="button_draft" states="to_approve,approved,rejected,done" string="Reset" type="object" groups="purchase_request.group_purchase_request_manager"/>
+                <button name="button_to_approve" states="draft" string="Request approval" type="object" class="oe_highlight"/>
+                <button name="button_approved" states="to_approve" string="Approve" type="object" class="oe_highlight" groups="purchase_request.group_purchase_request_manager"/>
+                <button name="button_done" states="approved" string="Done" type="object" class="oe_highlight" groups="purchase_request.group_purchase_request_manager"/>
+                <button name="button_rejected" states="to_approve,approved" string="Reject" type="object" groups="purchase_request.group_purchase_request_manager"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved,done,rejected" statusbar_colors="{&quot;approved&quot;:&quot;blue&quot;}"/>
+            </header>
+            <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button type="object" name="action_view_purchase_request_line" class="oe_stat_button" attrs="{'invisible':[('line_count', '=', 0)]}" icon="fa-list">
+                        <field name="line_count" widget="statinfo" string="Lines"/>
+                    </button>
+                </div>
+                <div class="oe_edit_only">
+                    <label for="name" class="oe_inline"/>
+                </div>
+                <h1>
+                    <field name="is_editable" invisible="1"/>
+                    <field name="name" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                </h1>
+                <group>
+                    <group>
+                        <field name="requested_by" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                        <field name="assigned_to" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="origin" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                        <field name="description" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                        <field name="group_id" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="date_start" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                        <field name="picking_type_id" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Products">
+                        <field name="line_ids">
+                            <tree decoration-muted="cancelled == True">
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="product_qty"/>
+                                <field name="product_uom_id" groups="product.group_uom"/>
+                                <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                                <field name="date_required"/>
+                                <field name="cancelled" invisible="1"/>
+                                <field name="is_editable" invisible="1"/>
+                                <field name="purchased_qty"/>
+                                <field name="purchase_state"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="is_editable" invisible="1"/>
+                                            <field name="product_id" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                            <field name="name" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                            <label for="product_qty" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                            <div>
+                                                <field name="product_qty" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                                <field name="product_uom_id" groups="product.group_uom" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                            </div>
+                                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                            <field name="date_required" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                            <field name="cancelled"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <separator string="Specifications"/>
+                                        <newline/>
+                                        <field name="specifications" nolabel="1" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                                    </group>
+                                    <notebook>
+                                        <page name="purchase_lines" string="Purchase Order Lines">
+                                            <group>
+                                                <field name="purchased_qty"/>
+                                                <field name="purchase_state"/>
+                                            </group>
+                                            <newline/>
+                                            <group>
+                                                <field name="purchase_lines" nolabel="1"/>
+                                            </group>
+                                        </page>
+                                    </notebook>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers"/>
+              <field name="activity_ids" widget="mail_activity"/>
+              <field name="message_ids" widget="mail_thread"/>
+            </div>
+            </form>
+        
