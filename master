@@ -10,12 +10,11 @@
                         class="oe_highlight" 
                         groups="purchase_request.group_purchase_request_manager"
                         />
-               <button name="button_approved" 
+               <button name="button_approved_Engahmed" 
                         states="to_approve" 
                         string="Approve" 
                         type="object" 
                         class="oe_highlight" 
-                       
                         groups="purchase_request.group_purchase_request_manager_Engahmed"/>
                 <button name="button_done" states="approved" string="Done" type="object" class="oe_highlight" groups="purchase_request.group_purchase_request_manager"/>
                 <button name="button_rejected" states="to_approve,approved" string="Reject" type="object" groups="purchase_request.group_purchase_request_manager"/>
@@ -38,6 +37,7 @@
                     <group>
                         <field name="requested_by" attrs="{'readonly': [('is_editable','=', False)]}"/>
                         <field name="assigned_to" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                        <field name="x_assigned_to_engahmed" attrs="{'readonly': [('is_editable','=', False)]}"/>
                     </group>
                     <group>
                         <field name="origin" class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}"/>
